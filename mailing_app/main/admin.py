@@ -1,3 +1,8 @@
 from django.contrib import admin
+from .models import *
 
 # Register your models here.
+admin.site.register(Profile)
+admin.site.register(Addressees)
+admin.site.register(Letter)
+admin.site.register(Mailing)
