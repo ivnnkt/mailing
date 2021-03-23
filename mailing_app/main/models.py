@@ -56,11 +56,14 @@ class Addressees(models.Model):
 
 
 class Mailing(models.Model):
+    """модель Рассылки - конфигурирует рассылку
+
+    """
     name = models.CharField(
         verbose_name="Название рассылки",
         max_length=250
     )
-    # template = models. Шаблон письма поле будет хранить шаблон отправляемого сообщения,
+    # letter = models. Шаблон письма поле будет хранить шаблон отправляемого сообщения,
     # необходимо продумать  этот момент может даже завести под это дополнительную таблицу.
     addressees = models.ManyToManyField(Addressees)
     add = models.BooleanField(
@@ -68,3 +71,14 @@ class Mailing(models.Model):
         verbose_name='Добавлен'
     )
     mail_from = models.ManyToManyField(Profile)
+
+
+class Letter(models.Model):
+    """модель Письмо - для конфигурации обраца письма для отправки
+    """
+    name = models.CharField(
+        verbose_name="Название письма",
+        max_length=250
+    )
+    content = models.TextField(verbose_name="Содержание письма", blank=True)
+    image = models.ImageField(verbose_name="Изображение", upload_to='static/main/images')
