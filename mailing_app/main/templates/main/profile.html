@@ -1,9 +1,14 @@
 {% extends 'main/base.html' %}
 
 {% block content %}
-    <h1>Редактировать профиль</h1>
-    <form method="post">{% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Обновить данные">
-    </form>
+    <h1>Профиль пользователя {{ user.username }}</h1>
+
+    <h2>{{ profile.last_name }} {{ profile.first_name }}</h2>
+
+    <p>
+        Доступные Email:
+        {{ profile.mail_address__owner= }}
+    </p>
+
+    <a class="btn btn-secondary" href="{% url 'profile_edit' pk=user.id %}">Редактировать профиль</a>
 {% endblock content %}

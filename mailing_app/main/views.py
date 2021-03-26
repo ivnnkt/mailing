@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Profile
-# from django.views import generic
+from django.views import generic
 from django.views.generic.edit import UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import ProfileForm
@@ -20,8 +20,17 @@ def index(request):
     )
 
 class ProfileUpdate(LoginRequiredMixin, UpdateView):
-    """Форма редактирования пользователя."""
+    """Стрница редактирования пользователя.
+    """
+    model = Profile
+    form_class = ProfileForm
+    template_name = 'main/profile_edit.html'
+    success_url = reverse_lazy('profile', args=[1])
+
+
+class ProfileDetailView(LoginRequiredMixin, generic.DetailView):
+    """Страница отображения данных пользователя (личный кабинет).
+    """
     model = Profile
     form_class = ProfileForm
     template_name = 'main/profile.html'
-    success_url = reverse_lazy('/')
