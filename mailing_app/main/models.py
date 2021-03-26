@@ -1,7 +1,21 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 # Create your models here.
+
+class UserMails(models.Model):
+    """модель для хранения email адресов пользователя от лица
+    которых он может отправлять рассылки
+    """
+    user_mail = models.EmailField(
+        verbose_name="Email",
+        blank=False
+    )
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+
+
 class Profile(models.Model):
     """Модель Профиль пользователя - асширяет стандартную модель User,
     позволяет хранить различные email адреса пользователя от имени
@@ -20,9 +34,9 @@ class Profile(models.Model):
     )
     first_name = models.CharField(verbose_name="Имя", max_length=50)
     last_name = models.CharField(verbose_name="Фамилия", max_length=50)
-    mail_address = models.EmailField(
+    mail_address = models.ManyToManyField(
+        UserMails,
         verbose_name="Email",
-        null=True,
     )
 
     def __str__(self):
@@ -82,3 +96,12 @@ class Letter(models.Model):
     )
     content = models.TextField(verbose_name="Содержание письма", blank=True)
     image = models.ImageField(verbose_name="Изображение", upload_to='static/main/images')
+
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    """По сигналу о сохрании нового пользователя автоматически создает
+    профаил пользователя и добавляет его в группу common users.
+    """
+    if created:
+        Profile.objects.get_or_create(username=instance)
