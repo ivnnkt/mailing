@@ -17,7 +17,7 @@ class UserMails(models.Model):
 
 
 class Profile(models.Model):
-    """Модель Профиль пользователя - асширяет стандартную модель User,
+    """Модель Профиль пользователя - расширяет стандартную модель User,
     позволяет хранить различные email адреса пользователя от имени
     которых будут осуществляться рассылки
     (например рабочая и личная почта).
@@ -101,7 +101,7 @@ class Letter(models.Model):
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     """По сигналу о сохрании нового пользователя автоматически создает
-    профаил пользователя и добавляет его в группу common users.
+    профаил пользователя.
     """
     if created:
-        Profile.objects.get_or_create(username=instance)
+        Profile.objects.get_or_create(name=instance)
