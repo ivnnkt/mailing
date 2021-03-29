@@ -54,3 +54,18 @@ class CreateAddressees(LoginRequiredMixin, generic.CreateView):
     model = Addressees
     form_class = AddresseesForm
     template_name = 'main/create_addressees.html'
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
+
+
+class AddresseesListView(
+    generic.ListView
+):
+    """Страница со списком адресатов, на которой необходимо
+    отмечать тех кого включаешь в рассылку.
+    """
+    model = Addressees
+    form_class = AddresseesForm
+    template_name = 'main/addressees.html'

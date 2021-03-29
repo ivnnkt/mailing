@@ -1,0 +1,18 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+Addressees
+{% endblock %}
+
+{% block content %}
+    <h1>Выберете адресатов для рассылки</h1>
+    <a class="nav-link" href="{% url 'addressees_create' %}">Добавить адресата</a>
+    <ul>
+      {% for addr in object_list %}
+      <li>
+        <p>{{ addr.first_name }} ({{ addr.last_name }})<p/>
+      </li>
+      {% endfor %}
+    </ul>
+    <a class="nav-link" href="{% url 'addressees_create' %}">Добавить адресата</a>
+{% endblock %}
