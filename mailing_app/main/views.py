@@ -1,9 +1,9 @@
 from django.shortcuts import render
-from .models import Profile
+from .models import Profile, Addressees
 from django.views import generic
 from django.views.generic.edit import UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from .forms import ProfileForm
+from .forms import ProfileForm, AddresseesForm
 from django.urls import reverse_lazy
 # from django.http import HttpResponseRedirect
 
@@ -32,7 +32,11 @@ class ProfileUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return self.request.user.id == obj.pk
 
 
-class ProfileDetailView(LoginRequiredMixin, UserPassesTestMixin, generic.DetailView):
+class ProfileDetailView(
+    LoginRequiredMixin,
+    UserPassesTestMixin,
+    generic.DetailView
+):
     """Страница отображения данных пользователя (личный кабинет).
     """
     model = Profile
@@ -42,3 +46,11 @@ class ProfileDetailView(LoginRequiredMixin, UserPassesTestMixin, generic.DetailV
     def test_func(self):
         obj = super(generic.DetailView, self).get_object()
         return self.request.user.id == obj.pk
+
+
+class CreateAddressees(LoginRequiredMixin, generic.CreateView):
+    """Страница для создания списка адресатов рассылки
+    """
+    model = Addressees
+    form_class = AddresseesForm
+    template_name = 'main/create_addressees.html'
