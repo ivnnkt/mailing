@@ -67,6 +67,10 @@ class Addressees(models.Model):
         blank=False
     )
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    add = models.BooleanField(
+        default=False,
+        verbose_name='добавить в рассылку'
+    )
 
 
 class Mailing(models.Model):

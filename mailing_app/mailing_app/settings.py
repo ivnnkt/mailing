@@ -144,3 +144,10 @@ LOGIN_REDIRECT_URL = '/'
 ACCOUNT_LOGOUT_REDIRECT_URL = '/'
 # регистрации
 ACCOUNT_SIGNUP_REDIRECT_URL = '/'
+
+# настройки для отправки почты чере google
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'send.test.mailing@gmail.com'
+EMAIL_HOST_PASSWORD ='test1234PASS'
+EMAIL_PORT = 587

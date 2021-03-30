@@ -15,7 +15,10 @@ Mailing app
 {% endblock %}
 
 {% block content %}
-<p>Здесь будут отображаться рассылки совершенные вами ранее.</p>
+    {% for item in addressees %}
+        <h3>{{ item.first_name }} {{ item.last_name }}</h3>
+        <p><strong>Email:</strong> {{ item.email }} <strong>Группа:</strong> {{ item.group }} <strong>Включить в рассылку:</strong> {{ item.add }}</p>
+    {% endfor %}
 {% endblock %}
 
 {% block mailing_name %}
