@@ -12,4 +12,4 @@ class AddresseesForm(ModelForm):
 
     class Meta:
         model = Addressees
-        fields = ('first_name', 'last_name', 'email', 'group',)
+        fields = ('first_name', 'last_name', 'email', 'group', 'add')

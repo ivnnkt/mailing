@@ -10,12 +10,13 @@ from django.urls import reverse_lazy
 def index(request):
     """Главная страница.
     """
+    addr = Addressees.objects.all()
 
     return render(
         request,
         'main/index.html',
         {
-            # 'prod': prod,
+            'addressees': addr,
         }
     )
 
