@@ -55,6 +55,7 @@ class CreateAddressees(LoginRequiredMixin, generic.CreateView):
     model = Addressees
     form_class = AddresseesForm
     template_name = 'main/create_addressees.html'
+    success_url = '/'
 
     def form_valid(self, form):
         form.instance.owner = self.request.user

@@ -1,9 +1,9 @@
 {% extends 'main/base.html' %}
 
 {% block content %}
-    <h1>Создайте список рассыки</h1>
+    <h1>Добавить адресата</h1>
     <form method="post">{% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" value="Создать список">
+        <input type="submit" value="Добавить адресата">
     </form>
 {% endblock content %}
